@@ -1,0 +1,56 @@
+spring:
+  application:
+    name: AppointmentManager
+    env: local
+
+  datasource:
+    url: jdbc:h2:file:./data/testdb
+    driverClassName: org.h2.Driver
+    username: sa
+    password: password
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    database-platform: org.hibernate.dialect.H2Dialect
+    show-sql: true
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+logging:
+  level:
+    root: INFO
+management:
+  endpoints:
+    web:
+      base-path: /gerimedica
+      exposure:
+        include: "*"
+
+server:
+  port: 8585
+  undertow:
+    io-threads: 4
+    worker-threads: 16
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operationsSorter: method
+    filter: true
+  packages-to-scan: nl.gerimedica.assignment
+  paths-to-match: /api/**
+
+# Actuator examples:
+# Health check: http://localhost:8585/gerimedica/health
+# All endpoints list: http://localhost:8585/gerimedica
+# Metrics: http://localhost:8585/gerimedica/metrics
+
+# In the local environment, I've exposed all actuator endpoints to make development and debugging easier.
+# For staging or production, I plan to restrict this to essential endpoints like 'health' and 'info' for security reasons.
+
